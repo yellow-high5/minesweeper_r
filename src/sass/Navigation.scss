@@ -1,0 +1,12 @@
+$first-base-color: #222;
+$second-base-color: #61DAFB;
+$line-color: #ccc;
+
+.Navigation{
+  width: 960px;
+  height: 80px;
+  margin-top: 5px;
+  display: inline-block;
+  background: #ffffff;
+  border-bottom: 3px solid $line-color;
+}
