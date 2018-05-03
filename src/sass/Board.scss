@@ -5,8 +5,30 @@ $line-color: #ccc;
 .Board{
   width: 720px;
   height: 480px;
-  margin: 5px;
   display: inline-block;
-  background: #ffffff;
+  margin-top: 5px;
+  background: $first-base-color;
   border: 3px solid $line-color;
+  vertical-align: top;
+
+  .Square{
+    background: $first-base-color;
+    border: 1px solid $second-base-color;
+    float: left;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 40px;
+    height: 40px;
+    padding: 0;
+    text-align: center;
+    width: 40px;
+
+    &:hover{
+      background: #ffffff;
+    }
+
+    &:active{
+      background-color: $second-base-color;
+    }
+  }
 }

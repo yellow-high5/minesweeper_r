@@ -3,6 +3,64 @@
   height: 80px;
   margin-top: 5px;
   display: inline-block;
-  background: #ffffff;
-  border-bottom: 3px solid #ccc;
+  background: #222;
+  border: 3px solid #ccc;
+  vertical-align: top;
+}
+
+.Navigation .Reset {
+  width: 76px;
+  height: 76px;
+  background: #fff;
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+  float: left;
+  margin-left: 48px;
+}
+
+.Navigation .AboutStage {
+  width: 180px;
+  height: 72px;
+  color: #61DAFB;
+  display: inline-block;
+  vertical-align: middle;
+  float: left;
+  margin-left: 64px;
+}
+
+.Navigation .AboutStage h2 {
+  font-size: 36px;
+  margin: 24px 0;
+}
+
+.Navigation .AboutBombs {
+  width: 180px;
+  height: 72px;
+  color: #FC3737;
+  display: inline-block;
+  vertical-align: middle;
+  float: left;
+  margin-left: 64px;
+}
+
+.Navigation .AboutBombs p {
+  margin: 6px 0;
+}
+
+.Navigation .AboutBombs h2 {
+  font-size: 36px;
+  margin: 18px 0;
+}
+
+.Navigation .Timer {
+  height: 76px;
+  color: #ffffff;
+  display: inline-block;
+  float: right;
+  margin-right: 48px;
+}
+
+.Navigation .Timer h2 {
+  margin: 32px 0;
 }

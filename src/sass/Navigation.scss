@@ -7,6 +7,60 @@ $line-color: #ccc;
   height: 80px;
   margin-top: 5px;
   display: inline-block;
-  background: #ffffff;
-  border-bottom: 3px solid $line-color;
+  background: $first-base-color;
+  border: 3px solid $line-color;
+  vertical-align: top;
+
+  .Reset{
+    width: 76px;
+    height: 76px;
+    background: #fff;
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    float: left;
+    margin-left: 48px;
+  }
+
+  .AboutStage{
+    width: 180px;
+    height: 72px;
+    color: $second-base-color;
+    display: inline-block;
+    vertical-align: middle;
+    float: left;
+    margin-left: 64px;
+    h2{
+      font-size: 36px;
+      margin: 24px 0;
+    }
+  }
+
+  .AboutBombs{
+    width: 180px;
+    height: 72px;
+    color: #FC3737;
+    display: inline-block;
+    vertical-align: middle;
+    float: left;
+    margin-left: 64px;
+    p{
+      margin: 6px 0;
+    }
+    h2{
+      font-size: 36px;
+      margin: 18px 0;
+    }
+  }
+
+  .Timer{
+    height: 76px;
+    color: #ffffff;
+    display: inline-block;
+    float: right;
+    margin-right: 48px;
+    h2{
+      margin: 32px 0;
+    }
+  }
 }

@@ -1,8 +1,55 @@
 .Itemlist {
   width: 240px;
   height: 480px;
-  margin: 5px;
   display: inline-block;
-  background: #ffffff;
+  margin-top: 5px;
+  background: #222;
   border: 3px solid #ccc;
+}
+
+.Itemlist .Item {
+  width: 240px;
+  height: 60px;
+  border-bottom: 3px solid #61DAFB;
+  vertical-align: middle;
+}
+
+.Itemlist .Item .item-icon {
+  width: 48px;
+  height: 48px;
+  background-color: #ffffff;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 5px;
+}
+
+.Itemlist .Item .item-name {
+  width: 72px;
+  color: #ffffff;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0px 10px;
+}
+
+.Itemlist .Item .item-state {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.Itemlist .Item .item-state .item-number {
+  color: #61DAFB;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.Itemlist .Item .item-state .item-use {
+  color: #61DAFB;
+  background: #222;
+  border: 1px solid #61DAFB;
+  display: block;
+}
+
+.Itemlist .Item .item-state .item-use:hover {
+  color: #ffffff;
+  background: #61DAFB;
 }

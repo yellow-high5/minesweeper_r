@@ -5,8 +5,56 @@ $line-color: #ccc;
 .Itemlist{
   width: 240px;
   height: 480px;
-  margin: 5px;
   display: inline-block;
-  background: #ffffff;
+  margin-top: 5px;
+  background: $first-base-color;
   border: 3px solid $line-color;
+
+  .Item{
+    width: 240px;
+    height: 60px;
+    border-bottom: 3px solid $second-base-color;
+    vertical-align: middle;
+
+    .item-icon{
+      width: 48px;
+      height: 48px;
+      background-color: #ffffff;
+      display: inline-block;
+      vertical-align: middle;
+      margin-top: 5px;
+    }
+
+    .item-name{
+      width: 72px;
+      color: #ffffff;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0px 10px;
+    }
+
+    .item-state{
+      display: inline-block;
+      vertical-align: middle;
+
+      .item-number{
+        color: $second-base-color;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .item-use{
+        color: $second-base-color;
+        background: $first-base-color;
+        border: 1px solid $second-base-color;
+        display: block;
+
+        &:hover{
+          color: #ffffff;
+          background: $second-base-color;
+        }
+      }
+    }
+
+  }
 }
