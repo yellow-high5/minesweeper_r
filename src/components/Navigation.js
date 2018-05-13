@@ -25,7 +25,7 @@ class AboutBombs extends Component {
   render() {
     return(
       <div className="AboutBombs">
-        <p>Bomb's number</p><h2>010</h2>
+        <p>Bomb's number</p><h2>{this.props.number}</h2>
       </div>
     );
   }
@@ -47,7 +47,7 @@ class Navigation extends Component {
       <div className="Navigation">
         <Reset />
         <AboutStage />
-        <AboutBombs />
+        <AboutBombs number={this.props.bomb_number}/>
         <Timer />
       </div>
     );

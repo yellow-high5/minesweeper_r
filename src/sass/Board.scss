@@ -13,9 +13,10 @@ $line-color: #ccc;
 
   .Square{
     background: $first-base-color;
-    border: 1px solid $second-base-color;
+    color: $second-base-color;
+    border: 2px solid #ffffff;
     float: left;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bold;
     line-height: 40px;
     height: 40px;
@@ -30,5 +31,26 @@ $line-color: #ccc;
     &:active{
       background-color: $second-base-color;
     }
+
+    &:disabled{
+      border: 1px solid $second-base-color;
+      &:hover{
+        background: $first-base-color;
+      }
+    }
+  }
+
+  .Current{
+    background: #61DAFB;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 40px;
+    height: 40px;
+    padding: 0;
+    text-align: center;
+    width: 40px;
   }
 }

@@ -10,9 +10,10 @@
 
 .Board .Square {
   background: #222;
-  border: 1px solid #61DAFB;
+  color: #61DAFB;
+  border: 2px solid #ffffff;
   float: left;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
   line-height: 40px;
   height: 40px;
@@ -27,4 +28,26 @@
 
 .Board .Square:active {
   background-color: #61DAFB;
+}
+
+.Board .Square:disabled {
+  border: 1px solid #61DAFB;
+}
+
+.Board .Square:disabled:hover {
+  background: #222;
+}
+
+.Board .Current {
+  background: #61DAFB;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 40px;
+  height: 40px;
+  padding: 0;
+  text-align: center;
+  width: 40px;
 }
