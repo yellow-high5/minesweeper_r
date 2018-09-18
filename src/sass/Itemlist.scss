@@ -9,6 +9,7 @@ $line-color: #ccc;
   margin-top: 5px;
   background: $first-base-color;
   border: 3px solid $line-color;
+  cursor: pointer;
 
   .Item{
     width: 240px;
@@ -19,7 +20,7 @@ $line-color: #ccc;
     .item-icon{
       width: 48px;
       height: 48px;
-      background-color: #ffffff;
+      background-color: $first-base-color;
       display: inline-block;
       vertical-align: middle;
       margin-top: 5px;
@@ -48,6 +49,7 @@ $line-color: #ccc;
         background: $first-base-color;
         border: 1px solid $second-base-color;
         display: block;
+        cursor: pointer;
 
         &:hover{
           color: #ffffff;

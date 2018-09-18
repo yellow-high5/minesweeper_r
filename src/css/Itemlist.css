@@ -5,6 +5,7 @@
   margin-top: 5px;
   background: #222;
   border: 3px solid #ccc;
+  cursor: pointer;
 }
 
 .Itemlist .Item {
@@ -17,7 +18,7 @@
 .Itemlist .Item .item-icon {
   width: 48px;
   height: 48px;
-  background-color: #ffffff;
+  background-color: #222;
   display: inline-block;
   vertical-align: middle;
   margin-top: 5px;
@@ -47,6 +48,7 @@
   background: #222;
   border: 1px solid #61DAFB;
   display: block;
+  cursor: pointer;
 }
 
 .Itemlist .Item .item-state .item-use:hover {

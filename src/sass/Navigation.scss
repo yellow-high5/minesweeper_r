@@ -14,11 +14,11 @@ $line-color: #ccc;
   .Reset{
     width: 76px;
     height: 76px;
-    background: #fff;
-    color: #fff;
+    background: $first-base-color;
     display: inline-block;
     vertical-align: middle;
     float: left;
+    margin-top: 4px;
     margin-left: 48px;
   }
 

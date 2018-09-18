@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/Board.css';
 
+
 class Square extends Component{
   render() {
     return(
@@ -11,10 +12,42 @@ class Square extends Component{
   }
 }
 
+//現在地を示したパネル
 class Current extends Component{
   render() {
     return(
-      <button className="Current" disabled={this.props.disabled} onClick={() => this.props.onClick()}>
+      <button className="Current" disabled={this.props.disabled}>
+        {this.props.value}
+      </button>
+    )
+  }
+}
+
+//アイテムでマーキングしたパネル
+class Marking extends Component{
+  render() {
+    return(
+      <button className="Marking" onDoubleClick={() => this.props.onDoubleClick()}>
+      </button>
+    );
+  }
+}
+
+//アイテムで爆弾を破壊したパネル
+class Bombed extends Component{
+  render() {
+    return(
+      <button className="Bombed" disabled='disabled'>
+      </button>
+    );
+  }
+}
+
+//ゲームオーバーパネル
+class Explode extends Component{
+  render() {
+    return(
+      <button className="Explode" disabled='disabled'>
         {this.props.value}
       </button>
     )
@@ -31,16 +64,53 @@ class Board extends Component {
     return <Current value={(this.props.mined_loc[i][j])} disabled={(this.props.minable_loc[i][j])} onClick={() => this.props.onClick(i,j)}/>;
   }
 
+  renderMarking(i, j){
+    return <Marking value={(this.props.mined_loc[i][j])} onDoubleClick={() => this.props.onDoubleClick(i,j)}/>
+  }
+
+  renderBombed(i, j){
+    return <Bombed value={(this.props.mined_loc[i][j])}/>
+  }
+
+  renderExplode(i, j) {
+    return <Explode value={(this.props.mined_loc[i][j])}/>
+  }
+
   render() {
     const field = [];
+    const field_state = this.props.field_state;
     const cur_loc = this.props.cur_loc;
-    for(let i = 0; i < 12; i++){
-      for(let j = 0; j < 18; j++){
-        if(cur_loc[0] === i && cur_loc[1] === j){
-          field.push(this.renderCurrent(i,j))
+    const marking_loc = this.props.marking_loc;
+    const bombed_loc = this.props.bombed_loc;
+    //ゲームオーバー時
+    if(field_state === 'GAMEOVER'){
+      for(let i = 0; i < 12; i++){
+        for(let j = 0; j < 18; j++){
+          if(bombed_loc.map((loc) => loc.toString()).includes([i,j].toString())){
+            field.push(this.renderBombed(i,j))
+          }
+          else{
+            field.push(this.renderExplode(i,j))
+          }
         }
-        else{
-          field.push(this.renderSquare(i,j))
+      }
+    }
+    //挑戦中、ゲームクリア時
+    else{
+      for(let i = 0; i < 12; i++){
+        for(let j = 0; j < 18; j++){
+          if(marking_loc.map((loc) => loc.toString()).includes([i,j].toString())){
+            field.push(this.renderMarking(i,j))
+          }
+          else if(bombed_loc.map((loc) => loc.toString()).includes([i,j].toString())){
+            field.push(this.renderBombed(i,j))
+          }
+          else if(cur_loc[0] === i && cur_loc[1] === j){
+            field.push(this.renderCurrent(i,j))
+          }
+          else{
+            field.push(this.renderSquare(i,j))
+          }
         }
       }
     }

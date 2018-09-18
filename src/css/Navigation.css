@@ -11,11 +11,11 @@
 .Navigation .Reset {
   width: 76px;
   height: 76px;
-  background: #fff;
-  color: #fff;
+  background: #222;
   display: inline-block;
   vertical-align: middle;
   float: left;
+  margin-top: 4px;
   margin-left: 48px;
 }
 
