@@ -473,7 +473,8 @@ class Game extends Component {
     const mined_loc = this.state.mined_loc;
     const minable_loc = this.getMinable(mined_loc,field_state);  //掘ることができる場所     [[Array18] * 12]
     const item_map = this.state.item_map;
-    const bomb_number = this.state.bomb_loc.length;
+    const bomb_loc = this.state.bomb_loc;
+    const bomb_number = bomb_loc.length;
     console.log(minable_loc); //確認用:レンダリングするたびに掘れる場所をコンソールに表示
 
     return (
@@ -490,6 +491,7 @@ class Game extends Component {
           bombed_loc={bombed_loc}
           mined_loc={mined_loc}
           minable_loc={minable_loc}
+          bomb_loc={bomb_loc}
           onClick={(i,j) => this.handleClick(i,j)}
           onDoubleClick={(i,j) => this.handledbClick(i,j)}
         />

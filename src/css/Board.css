@@ -84,6 +84,22 @@
   cursor: pointer;
 }
 
+.Board .Bomb {
+  background: #222;
+  background-image: url("/img/bomb.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid #FC3737;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 40px;
+  height: 40px;
+  padding: 0;
+  text-align: center;
+  width: 40px;
+}
+
 .Board .Explode {
   background: #222;
   color: #ffffff;

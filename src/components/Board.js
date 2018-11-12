@@ -43,6 +43,16 @@ class Bombed extends Component{
   }
 }
 
+//ゲームオーバー時の爆弾箇所パネル
+class Bomb extends Component{
+  render() {
+    return(
+      <button className="Bomb" disabled='disabled'>
+      </button>
+    );
+  }
+}
+
 //ゲームオーバーパネル
 class Explode extends Component{
   render() {
@@ -50,7 +60,7 @@ class Explode extends Component{
       <button className="Explode" disabled='disabled'>
         {this.props.value}
       </button>
-    )
+    );
   }
 }
 
@@ -72,6 +82,10 @@ class Board extends Component {
     return <Bombed value={(this.props.mined_loc[i][j])}/>
   }
 
+  renderBomb(i, j){
+    return <Bomb value={(this.props.mined_loc[i][j])}/>
+  }
+
   renderExplode(i, j) {
     return <Explode value={(this.props.mined_loc[i][j])}/>
   }
@@ -82,12 +96,16 @@ class Board extends Component {
     const cur_loc = this.props.cur_loc;
     const marking_loc = this.props.marking_loc;
     const bombed_loc = this.props.bombed_loc;
+    const bomb_loc = this.props.bomb_loc;
     //ゲームオーバー時
     if(field_state === 'GAMEOVER'){
       for(let i = 0; i < 12; i++){
         for(let j = 0; j < 18; j++){
           if(bombed_loc.map((loc) => loc.toString()).includes([i,j].toString())){
             field.push(this.renderBombed(i,j))
+          }
+          else if (bomb_loc.map((loc) => loc.toString()).includes([i,j].toString())){
+            field.push(this.renderBomb(i,j))
           }
           else{
             field.push(this.renderExplode(i,j))
