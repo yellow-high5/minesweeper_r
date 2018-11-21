@@ -3,11 +3,18 @@ import Navigation from './Navigation';
 import Board from './Board';
 import Itemlist from './Itemlist';
 import '../css/Game.css';
+import swal from '@sweetalert/with-react';
 
-//とりあえずSTAGE1を作る。const STAGE     = {'STAGE1':{bomb_number:20,item_number:5,}, 'STAGE2':{bomb_number:30,item_number:10,}, 'STAGE3':{bomb_number:40,item_number:10,}};
+// ステージレベル
+const STAGES      = {'STAGE-1':{bomb_number:20,item_number:4,},
+                     'STAGE-2':{bomb_number:30,item_number:8,},
+                     'STAGE-3':{bomb_number:40,item_number:12,}
+                   };
+
 const ITEMS       = ['Marking', 'Scope', 'Drone', 'Switch'];
 const FIELD_ROW   = 12;
 const FIELD_COL   = 18;
+//フィールドの状態:'EXPLORE'=挑戦中,'MARKING'=アイテムマーキング使用中,'GOAL'=ステージクリア,'GAMEOVER'=ゲームオーバー
 const FIELD_STATE = ['EXPLORE','MARKING','GOAL','GAMEOVER'];
 const START_LOC   = [[4,0], [5,0], [6,0], [7,0]];
 const GOAL_LOC    = {'G':[4,17], 'O':[5,17], 'A':[6,17], 'L':[7,17]};
@@ -20,7 +27,9 @@ class Game extends Component {
 
     super(props);
 
-    //各ステータスを初期値を決定する
+    //ステータスの初期値設定(初めはSTAGE-1から)
+    let stage = 'STAGE-1'
+    let stage_settings = STAGES[stage];
     let cur_loc = [5,0];
     let marking_loc = new Array();
     let bombed_loc = new Array();
@@ -28,8 +37,8 @@ class Game extends Component {
     for(let i = 0; i < 12; i++){
       mined_loc[i] = new Array(18).fill(null);
     }
-    let bomb_loc = this.deployBomb(10);
-    let item_loc = this.deployItem(5, bomb_loc);  //!これじゃいけないかも...
+    let bomb_loc = this.deployBomb(stage_settings['bomb_number']);
+    let item_loc = this.deployItem(stage_settings['item_number'], bomb_loc);  //!これじゃいけないかも...
     let item_map = {
                     'Marking':{'description':'', 'number':bomb_loc.length},
                     'Scope'  :{'description':'', 'number':0},
@@ -47,6 +56,7 @@ class Game extends Component {
 
 　　 //ゲームのステータス
     this.state = {
+      stage: stage,                //現在のステージレベル
       cur_loc: cur_loc,            //現在地                     [x,y]
       marking_loc: marking_loc,    //マーキングされた場所         [[x,y]...]
       bombed_loc: bombed_loc,      //安全地帯(=爆弾破壊済み)      [[x,y]...]
@@ -54,13 +64,14 @@ class Game extends Component {
       bomb_loc: bomb_loc,          //爆弾の場所                 [[x,y]...]
       item_loc: item_loc,          //アイテムの場所              [[[x,y], "item_name"]...]
       item_map: item_map,          //アイテムのリストマップ       {'item_name':{'description':'', 'number':1}, ...}
-      field_state: 'EXPLORE',      //フィールドの状態:'EXPLORE'=挑戦中,'MARKING'=アイテムマーキング使用中,'GOAL'=ステージクリア,'GAMEOVER'=ゲームオーバー
-      stage: '',                   //
+      field_state: 'EXPLORE',      //フィールドの状態
+      pre_field_state: 'EXPLORE',  //場所を移動する前のフィールドの状態を保存する
     };
   }
 
-  //!ボードを初期化する←もっといい方法ありそう...
-  initializeClick(){
+  //ボードを指定したステージで実装する(引数をしてしなければ、STAGE-1でボードを初期化する)
+  exploreClick(stage = 'STAGE-1'){
+    let stage_settings = STAGES[stage];
     let cur_loc = [5,0];
     let marking_loc = new Array();
     let bombed_loc = new Array();
@@ -68,8 +79,8 @@ class Game extends Component {
     for(let i = 0; i < 12; i++){
       mined_loc[i] = new Array(18).fill(null);
     }
-    let bomb_loc = this.deployBomb(10);
-    let item_loc = this.deployItem(5, bomb_loc);
+    let bomb_loc = this.deployBomb(stage_settings['bomb_number']);
+    let item_loc = this.deployItem(stage_settings['item_number'], bomb_loc);
     let item_map = {
                     'Marking':{'description':'', 'number':bomb_loc.length},
                     'Scope'  :{'description':'', 'number':0},
@@ -81,6 +92,7 @@ class Game extends Component {
     for(let[key] in GOAL_LOC){mined_loc[GOAL_LOC[key][0]][GOAL_LOC[key][1]] = key}
 
     this.setState({
+      stage: stage,
       cur_loc: cur_loc,
       marking_loc: marking_loc,
       bombed_loc: bombed_loc,
@@ -89,12 +101,13 @@ class Game extends Component {
       item_loc: item_loc,
       item_map: item_map,
       field_state: 'EXPLORE',
-      stage: '',
+      pre_field_state: 'EXPLORE',
     });
   }
 
   //!Squareを押したときの処理
   handleClick(i,j) {
+    let stage = this.state.stage;
     const cur_loc = [i, j];
     let marking_loc = this.state.marking_loc;
     const mined_loc = this.state.mined_loc;
@@ -102,15 +115,29 @@ class Game extends Component {
     let item_loc = this.state.item_loc;
     let item_map = this.state.item_map;
     const field_state = this.state.field_state;
+    const pre_field_state = this.state.pre_field_state;
 
-    //!ステータスがGOALだったら、、、!this.state.field_state===FIELD_STATE[2]をthis.state.field_state===FIELD_STATE[0]に変える予定
-    if(field_state!==FIELD_STATE[2] && GOAL_CHECK.map((loc)=>loc.toString()===cur_loc.toString()).includes(true)){
-      alert('you get GOOOOAL!!');
+    //GOALに到着したら、次のステージの案内をする
+    if(GOAL_CHECK.map((loc)=>loc.toString()===cur_loc.toString()).includes(true)){
+      let next_stage = 'STAGE-' + String((Number(stage[6])+1));
+      //アラートを表示(次のステージに進むorこのステージにとどまる)
+      swal({
+        text: "Congratulations! Proceed to the Next Stage?",
+        icon: "success",
+        buttons: {
+          confirm: "Let's go!",
+          cancel: "Not yet.",
+        },
+      })
+      .then((value) => {
+        if(value)this.exploreClick(next_stage);
+      });
+
+      //フィールドのステータスを'GOAL'にする
       this.setState({
+        pre_field_state: field_state,
         field_state: FIELD_STATE[2],
       });
-      //次のステージのボタンが現れるようにする
-
     }
     //ステータスがMARKINGだったら、クリックするとSquareがMarkingに変わり、mined_locの位置だったら現在地へ
     let squares = document.getElementsByClassName('Board')[0].childNodes
@@ -125,7 +152,7 @@ class Game extends Component {
           squares[i].style.cursor = ""
         }
         this.setState({
-          field_state: FIELD_STATE[0],
+          field_state: pre_field_state,
         });
         this.usedItem('Marking')
       }
@@ -133,7 +160,7 @@ class Game extends Component {
       else{
         this.setState({
           cur_loc: [i, j],
-          field_state: FIELD_STATE[0],
+          field_state: pre_field_state,
         });
         for(let i = 0;i < FIELD_ROW * FIELD_COL;i++){
           squares[i].style.cursor = ""
@@ -152,6 +179,7 @@ class Game extends Component {
     //爆弾だったら、ゲームオーバーを返す
     if(bomb_loc.map((loc) => loc.toString()).includes(cur_loc.toString())){
       this.setState({
+        pre_field_state: field_state,
         field_state: 'GAMEOVER',
       });
       return;
@@ -172,7 +200,13 @@ class Game extends Component {
         item_loc: item_loc,
         item_map: item_map,
       });
-      alert('you get ' + get_item_name + '!!');
+      //アラートを表示
+      swal({
+        text: 'You get ' + get_item_name + '!!',
+        buttons: {
+          ok: "OK",
+        },
+      });
     }
 
     //安全地帯だったら、、、stateにmined_locを追加
@@ -315,7 +349,12 @@ class Game extends Component {
   //*Marking...爆弾と思われる場所(掘ることのできる場所)にマーキングしてdisabledにする
   handleMarking() {
     if(!this.checkItem('Marking')){
-      alert('You cannnot use Marking...')
+      swal({
+        title: "No Item",
+        text: "You cannot use Marking...",
+        icon: "warning",
+        button: "OK",
+      });
       return;
     }
 
@@ -353,11 +392,12 @@ class Game extends Component {
       squares[position].style.cursor = "url('/img/marking.png'), auto";
     }
     this.setState({
+      pre_field_state: field_state,
       field_state: FIELD_STATE[1],
     })
 
   }
-  //Markingをダブルクリックしたときマーキングを消す処理
+  //マーキングをダブルクリックしたときマーキングを消す処理
   handledbClick(i,j) {
     let bomb_loc = this.state.bomb_loc;
     let marking_loc = this.state.marking_loc;
@@ -378,7 +418,12 @@ class Game extends Component {
   //*Scope...周囲を安全に掘り起こす
   handleScope() {
     if(!this.checkItem('Scope')){
-      alert('You cannnot use Scope...')
+      swal({
+        title: "No Item",
+        text: "You cannot use Scope...",
+        icon: "warning",
+        button: "OK",
+      });
       return;
     }
 
@@ -408,7 +453,12 @@ class Game extends Component {
   //!*Drone...ランダムに安全な場所に着地する
   handleDrone() {
     if(!this.checkItem('Drone')){
-      alert('You cannnot use Drone...')
+      swal({
+        title: "No Item",
+        text: "You cannot use Drone...",
+        icon: "warning",
+        button: "OK",
+      });
       return;
     }
 
@@ -429,7 +479,12 @@ class Game extends Component {
   //*Switch...適当に爆弾を破壊する
   handleSwitch() {
     if(!this.checkItem('Switch')){
-      alert('You cannnot use Switch...')
+      swal({
+        title: "No Item",
+        text: "You cannot use Switch...",
+        icon: "warning",
+        button: "OK",
+      });
       return;
     }
 
@@ -466,6 +521,7 @@ class Game extends Component {
 
 
   render() {
+    const stage = this.state.stage;
     const field_state = this.state.field_state;
     const cur_loc = this.state.cur_loc;
     const marking_loc = this.state.marking_loc;
@@ -480,9 +536,10 @@ class Game extends Component {
     return (
       <div className="Game">
         <Navigation
+          stage={stage}
           field_state={field_state}
           bomb_number={bomb_number}
-          onClick={() => this.initializeClick()}
+          onClick={() => this.exploreClick()}
         />
         <Board
           field_state={field_state}
@@ -496,6 +553,7 @@ class Game extends Component {
           onDoubleClick={(i,j) => this.handledbClick(i,j)}
         />
         <Itemlist
+          field_state={field_state}
           item_map={item_map}
           onMarking={() => this.handleMarking()}
           onScope={() => this.handleScope()}

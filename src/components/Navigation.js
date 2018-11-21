@@ -10,6 +10,9 @@ class Reset extends Component {
       case 'EXPLORE':
         face = smile;
         break;
+      case 'MARKING':
+        face = smile;
+        break;
       case 'GOAL':
         face = love;
         break;
@@ -31,7 +34,7 @@ class AboutStage extends Component {
   render() {
     return(
       <div className="AboutStage">
-        <h2>STAGE-1</h2>
+        <h2>{this.props.stage}</h2>
       </div>
     );
   }
@@ -89,7 +92,7 @@ class Navigation extends Component {
     return(
       <div className="Navigation">
         <Reset field_state={this.props.field_state} onClick={() => this.props.onClick()}/>
-        <AboutStage />
+        <AboutStage stage={this.props.stage}/>
         <AboutBombs number={this.props.bomb_number}/>
         <Timer />
       </div>
