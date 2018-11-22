@@ -50,38 +50,11 @@ class AboutBombs extends Component {
   }
 }
 
-class Timer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      initial: new Date(),
-      now: new Date(),
-    };
-  }
-
-  componentDidMount() {
-    this.timerID = setInterval(
-      () => this.tick(),
-      1000
-    );
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
-  tick(state_name, time) {
-    this.setState({
-      now: new Date(),
-    });
-  }
-
+class TimeDisplay extends Component {
   render() {
-    const timer = new Date(this.state.now - this.state.initial)
-    //console.log(timer);
     return(
-      <div className="Timer">
-        <h2>Time: {timer.toUTCString().slice(18,26)}</h2>
+      <div className="TimeDisplay">
+        <h2>Time: <span id="basicUsage">00:00:00</span></h2>
       </div>
     )
   }
@@ -91,15 +64,14 @@ class Navigation extends Component {
   render() {
     return(
       <div className="Navigation">
-        <Reset field_state={this.props.field_state} onClick={() => this.props.onClick()}/>
+        <Reset field_state={this.props.field_state} onClick={() => this.props.resetClick()}/>
         <AboutStage stage={this.props.stage}/>
         <AboutBombs number={this.props.bomb_number}/>
-        <Timer />
+        <TimeDisplay />
       </div>
     );
   }
 }
-
 
 //face pattern exportしてもいいかもしれない...
 let love =          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126.24 113">
@@ -135,6 +107,7 @@ let die =           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126.24 
                         </g>
                       </g>
                     </svg>
+
 
 
 export default Navigation;

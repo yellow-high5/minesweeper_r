@@ -3,6 +3,7 @@ import Navigation from './Navigation';
 import Board from './Board';
 import Itemlist from './Itemlist';
 import '../css/Game.css';
+import Timer from 'easytimer'
 import swal from '@sweetalert/with-react';
 
 // ステージレベル
@@ -67,6 +68,9 @@ class Game extends Component {
       field_state: 'EXPLORE',      //フィールドの状態
       pre_field_state: 'EXPLORE',  //場所を移動する前のフィールドの状態を保存する
     };
+
+    //時間を動かす
+    startTimer();
   }
 
   //ボードを指定したステージで実装する(引数をしてしなければ、STAGE-1でボードを初期化する)
@@ -104,6 +108,8 @@ class Game extends Component {
       field_state: 'EXPLORE',
       pre_field_state: 'EXPLORE',
     });
+
+    startTimer();
   }
 
   //!Squareを押したときの処理
@@ -541,7 +547,7 @@ class Game extends Component {
           stage={stage}
           field_state={field_state}
           bomb_number={bomb_number}
-          onClick={() => this.exploreClick()}
+          resetClick={() => this.exploreClick()}
         />
         <Board
           field_state={field_state}
@@ -567,6 +573,15 @@ class Game extends Component {
   }
 }
 
+
+//タイマーを生成し、タイマーを更新する
+let timer;
+function startTimer() {
+  timer = new Timer();
+  let elapseTime = (e) => {document.getElementById('basicUsage').textContent = timer.getTimeValues().toString();}
+  timer.start();
+  timer.addEventListener('secondsUpdated', elapseTime);
+}
 
 
 //ランダム数を生成する(max=最大値、maxが10なら0~9)

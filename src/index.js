@@ -4,6 +4,7 @@ import './css/index.css';
 import App from './components/App';
 //import animationLogo from './animation/snapsvg';
 import Snap from 'snapsvg-cjs';
+import Timer from 'easytimer';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
@@ -153,6 +154,11 @@ let smileFace = function() {
 }
 piyo.click(animationFace);
 
-
+/*timer
+let timer = new Timer();
+let elapseTime = (e) => {document.getElementById('basicUsage').textContent = timer.getTimeValues().toString();}
+timer.start();
+timer.addEventListener('secondsUpdated', elapseTime);
+*/
 
 registerServiceWorker();
