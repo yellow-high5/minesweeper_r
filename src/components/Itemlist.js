@@ -11,7 +11,7 @@ class Item extends Component {
         <p className="item-name">{this.props.name}</p>
         <div className="item-state">
           <p className="item-number">{this.props.number}</p>
-          <button disabled={this.props.field_state === 'GAMEOVER'?'disabled':''} className="item-use"　onClick={() => this.props.onClick()}>Use this</button>
+          <button disabled={this.props.field_state === ('MARKING'||'GAMEOVER')?'disabled':''} className="item-use"　onClick={() => this.props.onClick()}>Use this</button>
         </div>
       </div>
     );

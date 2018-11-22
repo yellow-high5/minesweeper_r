@@ -70,7 +70,8 @@ class Game extends Component {
   }
 
   //ボードを指定したステージで実装する(引数をしてしなければ、STAGE-1でボードを初期化する)
-  exploreClick(stage = 'STAGE-1'){
+  //前のステージで持っていたアイテムは引き継げる(リセット時は引数を指定しない)
+  exploreClick(stage = 'STAGE-1', pre_item_number = {'Scope':0,'Drone':0,'Switch':0}){
     let stage_settings = STAGES[stage];
     let cur_loc = [5,0];
     let marking_loc = new Array();
@@ -83,9 +84,9 @@ class Game extends Component {
     let item_loc = this.deployItem(stage_settings['item_number'], bomb_loc);
     let item_map = {
                     'Marking':{'description':'', 'number':bomb_loc.length},
-                    'Scope'  :{'description':'', 'number':0},
-                    'Drone'  :{'description':'', 'number':0},
-                    'Switch' :{'description':'', 'number':0}
+                    'Scope'  :{'description':'', 'number':pre_item_number['Scope']},
+                    'Drone'  :{'description':'', 'number':pre_item_number['Drone']},
+                    'Switch' :{'description':'', 'number':pre_item_number['Switch']}
                   };
 
     START_LOC.map((loc) => mined_loc[loc[0]][loc[1]] = this.countBombs(bomb_loc, [loc[0],loc[1]]))
@@ -120,6 +121,7 @@ class Game extends Component {
     //GOALに到着したら、次のステージの案内をする
     if(GOAL_CHECK.map((loc)=>loc.toString()===cur_loc.toString()).includes(true)){
       let next_stage = 'STAGE-' + String((Number(stage[6])+1));
+      let pre_item_number  = {'Scope':item_map['Scope']['number'],'Drone':item_map['Drone']['number'],'Switch':item_map['Switch']['number']};
       //アラートを表示(次のステージに進むorこのステージにとどまる)
       swal({
         text: "Congratulations! Proceed to the Next Stage?",
@@ -130,7 +132,7 @@ class Game extends Component {
         },
       })
       .then((value) => {
-        if(value)this.exploreClick(next_stage);
+        if(value)this.exploreClick(next_stage, pre_item_number);
       });
 
       //フィールドのステータスを'GOAL'にする
@@ -204,7 +206,7 @@ class Game extends Component {
       swal({
         text: 'You get ' + get_item_name + '!!',
         buttons: {
-          ok: "OK",
+          confirm: "OK",
         },
       });
     }
