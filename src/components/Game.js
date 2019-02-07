@@ -69,7 +69,10 @@ class Game extends Component {
       pre_field_state: 'EXPLORE',  //場所を移動する前のフィールドの状態を保存する
     };
 
-    //時間を動かす
+  }
+
+  componentDidMount() {
+    //タイマーを動かす
     startTimer();
   }
 
@@ -109,6 +112,7 @@ class Game extends Component {
       pre_field_state: 'EXPLORE',
     });
 
+    //タイマーをリセットして再起動
     startTimer();
   }
 
