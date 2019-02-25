@@ -15,7 +15,6 @@ $line-color: #ccc;
     width: 76px;
     height: 76px;
     background: $first-base-color;
-    display: inline-block;
     vertical-align: middle;
     float: left;
     margin-top: 4px;
@@ -24,43 +23,52 @@ $line-color: #ccc;
 
   .AboutStage{
     width: 180px;
-    height: 72px;
+    height: 80px;
     color: $second-base-color;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     vertical-align: middle;
     float: left;
     margin-left: 64px;
-    h2{
+    span{
       font-size: 36px;
-      margin: 24px 0;
+      font-weight: bold;
     }
   }
 
   .AboutBombs{
     width: 180px;
-    height: 72px;
+    height: 80px;
     color: #FC3737;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     vertical-align: middle;
     float: left;
     margin-left: 64px;
     p{
       margin: 6px 0;
     }
-    h2{
+    span{
+      display: block;
       font-size: 36px;
-      margin: 18px 0;
+      font-weight: bold;
     }
   }
 
   .TimeDisplay{
-    height: 76px;
+    height: 80px;
     color: #ffffff;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     float: right;
     margin-right: 48px;
-    h2{
-      margin: 32px 0;
+    span{
+      font-size: 24px;
+      font-weight: bold;
     }
   }
 }

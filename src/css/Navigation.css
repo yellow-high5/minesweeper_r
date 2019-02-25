@@ -12,7 +12,6 @@
   width: 76px;
   height: 76px;
   background: #222;
-  display: inline-block;
   vertical-align: middle;
   float: left;
   margin-top: 4px;
@@ -21,24 +20,29 @@
 
 .Navigation .AboutStage {
   width: 180px;
-  height: 72px;
+  height: 80px;
   color: #61DAFB;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   vertical-align: middle;
   float: left;
   margin-left: 64px;
 }
 
-.Navigation .AboutStage h2 {
+.Navigation .AboutStage span {
   font-size: 36px;
-  margin: 24px 0;
+  font-weight: bold;
 }
 
 .Navigation .AboutBombs {
   width: 180px;
-  height: 72px;
+  height: 80px;
   color: #FC3737;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   vertical-align: middle;
   float: left;
   margin-left: 64px;
@@ -48,19 +52,23 @@
   margin: 6px 0;
 }
 
-.Navigation .AboutBombs h2 {
+.Navigation .AboutBombs span {
+  display: block;
   font-size: 36px;
-  margin: 18px 0;
+  font-weight: bold;
 }
 
 .Navigation .TimeDisplay {
-  height: 76px;
+  height: 80px;
   color: #ffffff;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   float: right;
   margin-right: 48px;
 }
 
-.Navigation .TimeDisplay h2 {
-  margin: 32px 0;
+.Navigation .TimeDisplay span {
+  font-size: 24px;
+  font-weight: bold;
 }

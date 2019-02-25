@@ -141,24 +141,4 @@ function animationSpark6(){
 
 animationLogo();
 
-
-//Face Animation <= ビミョーかな...
-let piyo = Snap('.AboutBombs');
-let facebotMouth = Snap('#facebot-mouth');
-let mouthPath = ['M40.9,73.3c-3.2,0-5.8,2.6-5.8,5.8v8.4c0,3.2,2.6,5.8,5.8,5.8h44.4c3.2,0,5.8-2.6,5.8-5.8V79c0-3.2-2.6-5.8-5.8-5.8H40.9z M61.3,81.3h-5v-3h5V81.3z M65,78.4h5.2v3H65V78.4z M52.5,81.3h-4.4v-3h4.4V81.3z M52.5,85v3h-4.4v-3H52.5z M56.2,85h5v3h-5V85z M65,85h5.2v3H65V85z M74,85h4.2v3H74V85z M74,81.3v-3h4.2v3H74z M40.9,78.4h3.4v3h-4V79C40.3,78.7,40.5,78.4,40.9,78.4z M40.3,87.4V85h4v3h-3.4C40.5,88,40.3,87.7,40.3,87.4z M85.3,88h-3.4v-3h4v2.4C85.9,87.7,85.6,88,85.3,88z M85.9,79v2.4h-4v-3h3.4C85.6,78.4,85.9,78.7,85.9,79z','M93.61,71.23c-.12.07-12,7-29.72,7A71.44,71.44,0,0,1,33,71.05a3.86,3.86,0,0,0-1.67-.38,3.89,3.89,0,0,0-1.67,7.4,79.56,79.56,0,0,0,34.39,8c19.7,0,33-7.87,33.58-8.21a3.89,3.89,0,0,0-4-6.67Z'];
-let animationFace = function() {
-  facebotMouth.animate({d:'M80.7,70.8H62.1c-1.9,0-3.5,1.6-3.5,3.5s1.6,3.5,3.5,3.5h6.7c-1.1,1.9-1.7,4.1-1.7,6.5s0.6,4.6,1.7,6.5h-6.7c-1.9,0-3.5,1.6-3.5,3.5s1.6,3.5,3.5,3.5h18.6c7.4,0,13.5-6.1,13.5-13.5C94.2,76.8,88.1,70.8,80.7,70.8z M80.7,90.8c-3.6,0-6.5-2.9-6.5-6.5s2.9-6.5,6.5-6.5s6.5,2.9,6.5,6.5S84.3,90.8,80.7,90.8z'},50,smileFace);
-}
-let smileFace = function() {
-  facebotMouth.animate({d:'M93.61,71.23c-.12.07-12,7-29.72,7A71.44,71.44,0,0,1,33,71.05a3.86,3.86,0,0,0-1.67-.38,3.89,3.89,0,0,0-1.67,7.4,79.56,79.56,0,0,0,34.39,8c19.7,0,33-7.87,33.58-8.21a3.89,3.89,0,0,0-4-6.67Z'},100)
-}
-piyo.click(animationFace);
-
-/*timer
-let timer = new Timer();
-let elapseTime = (e) => {document.getElementById('basicUsage').textContent = timer.getTimeValues().toString();}
-timer.start();
-timer.addEventListener('secondsUpdated', elapseTime);
-*/
-
 registerServiceWorker();

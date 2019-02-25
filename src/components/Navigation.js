@@ -34,7 +34,7 @@ class AboutStage extends Component {
   render() {
     return(
       <div className="AboutStage">
-        <h2>{this.props.stage}</h2>
+        <span >{this.props.stage}</span>
       </div>
     );
   }
@@ -44,7 +44,8 @@ class AboutBombs extends Component {
   render() {
     return(
       <div className="AboutBombs">
-        <p>Bomb's number</p><h2>{this.props.number}</h2>
+        <p>Bomb's number</p>
+        <span>{this.props.number}</span>
       </div>
     );
   }
@@ -54,7 +55,7 @@ class TimeDisplay extends Component {
   render() {
     return(
       <div className="TimeDisplay">
-        <h2>Time: <span id="basicUsage">00:00:00</span></h2>
+        <span>Time: <span id="basicUsage">00:00:00</span></span>
       </div>
     )
   }

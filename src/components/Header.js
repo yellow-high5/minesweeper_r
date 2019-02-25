@@ -30,7 +30,7 @@ class Header extends Component {
       <div className="App">
         <header className="App-header">
           {snap_logo}
-          <h1 className="App-title">MineSweeperR, React Application</h1>
+          <span className="App-title">MineSweeperR, React Application</span>
           <small>@yoshinori matsuzaki products.</small>
         </header>
       </div>

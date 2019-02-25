@@ -34,7 +34,10 @@
 }
 
 .App-title {
+  display: block;
+  margin-top: 10px;
   font-size: 1.5em;
+  font-weight: bold;
 }
 
 .App-intro {

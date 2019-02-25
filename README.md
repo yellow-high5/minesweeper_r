@@ -13,6 +13,8 @@ You only advance without stepping on mines from start to goal.
 ## Demo
 ![demo](https://user-images.githubusercontent.com/14067398/52430478-8249ea80-2b49-11e9-8337-f59e29f0be28.gif)
 
+Let's Play↓</br>
+https://react-minesweeper-r.herokuapp.com/
 
 ## How to Play?
 
