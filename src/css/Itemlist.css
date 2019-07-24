@@ -11,7 +11,7 @@
 .Itemlist .Item {
   width: 240px;
   height: 64px;
-  border-bottom: 3px solid #61DAFB;
+  border-bottom: 3px solid #61dafb;
   vertical-align: middle;
 }
 
@@ -38,20 +38,20 @@
 }
 
 .Itemlist .Item .item-state .item-number {
-  color: #61DAFB;
+  color: #61dafb;
   display: block;
   margin-bottom: 5px;
 }
 
 .Itemlist .Item .item-state .item-use {
-  color: #61DAFB;
+  color: #61dafb;
   background: #222;
-  border: 1px solid #61DAFB;
+  border: 1px solid #61dafb;
   display: block;
   cursor: pointer;
 }
 
 .Itemlist .Item .item-state .item-use:hover {
   color: #ffffff;
-  background: #61DAFB;
+  background: #61dafb;
 }

@@ -11,7 +11,7 @@
 
 .Board .Square {
   background: #222;
-  color: #61DAFB;
+  color: #61dafb;
   border: 2px solid #ffffff;
   float: left;
   font-size: 24px;
@@ -29,11 +29,11 @@
 }
 
 .Board .Square:active {
-  background-color: #61DAFB;
+  background-color: #61dafb;
 }
 
 .Board .Square:disabled {
-  border: 1px solid #61DAFB;
+  border: 1px solid #61dafb;
 }
 
 .Board .Square:disabled:hover {
@@ -41,7 +41,7 @@
 }
 
 .Board .Current {
-  background: #61DAFB;
+  background: #61dafb;
   color: #ffffff;
   border: 2px solid #ffffff;
   float: left;
@@ -60,8 +60,8 @@
   background-image: url("/img/marking.png");
   background-repeat: no-repeat;
   background-position: center center;
-  color: #61DAFB;
-  border: 2px solid #61DAFB;
+  color: #61dafb;
+  border: 2px solid #61dafb;
   float: left;
   line-height: 40px;
   height: 40px;
@@ -72,7 +72,18 @@
 }
 
 .Board .Bombed {
-  background-image: linear-gradient(45deg, #222 20%, #61DAFB 20%, #61DAFB 40%, #222 40%, #222 60%, #61DAFB 60%, #61DAFB 80%, #222 80%, #222);
+  background-image: linear-gradient(
+    45deg,
+    #222 20%,
+    #61dafb 20%,
+    #61dafb 40%,
+    #222 40%,
+    #222 60%,
+    #61dafb 60%,
+    #61dafb 80%,
+    #222 80%,
+    #222
+  );
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -89,7 +100,7 @@
   background-image: url("/img/bomb.png");
   background-repeat: no-repeat;
   background-position: center center;
-  border: 1px solid #FC3737;
+  border: 1px solid #fc3737;
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -103,7 +114,7 @@
 .Board .Explode {
   background: #222;
   color: #ffffff;
-  border: 1px solid #FC3737;
+  border: 1px solid #fc3737;
   float: left;
   font-size: 24px;
   font-weight: bold;

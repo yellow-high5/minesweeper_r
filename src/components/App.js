@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import Header from './Header';
-import Game from './Game'
+import React, { Component } from "react";
+import Header from "./Header";
+import Game from "./Game";
 //import '../css/App.css';
 
 class App extends Component {
