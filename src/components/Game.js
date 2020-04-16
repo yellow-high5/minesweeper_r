@@ -1,16 +1,18 @@
-import React, { Component } from "react";
-import Navigation from "./Navigation";
-import Board from "./Board";
-import Itemlist from "./Itemlist";
-import "../css/Game.css";
-import Timer from "easytimer";
-import swal from "@sweetalert/with-react";
+import '../css/Game.css';
+
+import swal from '@sweetalert/with-react';
+import Timer from 'easytimer';
+import React, { Component } from 'react';
+
+import Board from './board/Board';
+import Itemlist from './itemlist/Itemlist';
+import Navigation from './navigation/Navigation';
 
 // ステージレベル
 const STAGES = {
   "STAGE-1": { bomb_number: 20, item_number: 4 },
   "STAGE-2": { bomb_number: 30, item_number: 8 },
-  "STAGE-3": { bomb_number: 40, item_number: 12 }
+  "STAGE-3": { bomb_number: 40, item_number: 12 },
 };
 
 const ITEMS = ["Marking", "Scope", "Drone", "Switch"];
@@ -18,9 +20,19 @@ const FIELD_ROW = 12;
 const FIELD_COL = 18;
 //フィールドの状態:'EXPLORE'=挑戦中,'MARKING'=アイテムマーキング使用中,'GOAL'=ステージクリア,'GAMEOVER'=ゲームオーバー
 const FIELD_STATE = ["EXPLORE", "MARKING", "GOAL", "GAMEOVER"];
-const START_LOC = [[4, 0], [5, 0], [6, 0], [7, 0]];
+const START_LOC = [
+  [4, 0],
+  [5, 0],
+  [6, 0],
+  [7, 0],
+];
 const GOAL_LOC = { G: [4, 17], O: [5, 17], A: [6, 17], L: [7, 17] };
-const GOAL_CHECK = [[4, 17], [5, 17], [6, 17], [7, 17]];
+const GOAL_CHECK = [
+  [4, 17],
+  [5, 17],
+  [6, 17],
+  [7, 17],
+];
 const AROUND_LOC = [
   [0, 0],
   [-1, -1],
@@ -30,7 +42,7 @@ const AROUND_LOC = [
   [0, 1],
   [1, -1],
   [1, 0],
-  [1, 1]
+  [1, 1],
 ];
 
 class Game extends Component {
@@ -41,8 +53,8 @@ class Game extends Component {
     let stage = "STAGE-1";
     let stage_settings = STAGES[stage];
     let cur_loc = [5, 0];
-    let marking_loc = new Array();
-    let bombed_loc = new Array();
+    let marking_loc = [];
+    let bombed_loc = [];
     let mined_loc = new Array(12);
     for (let i = 0; i < 12; i++) {
       mined_loc[i] = new Array(18).fill(null);
@@ -53,16 +65,16 @@ class Game extends Component {
       Marking: { description: "", number: bomb_loc.length },
       Scope: { description: "", number: 0 },
       Drone: { description: "", number: 0 },
-      Switch: { description: "", number: 0 }
+      Switch: { description: "", number: 0 },
     };
 
     //スタートとゴールを設定する
     //スタートの位置を掘り起こし済みにし、周りの爆弾カウントを設定
     START_LOC.map(
-      loc =>
+      (loc) =>
         (mined_loc[loc[0]][loc[1]] = this.countBombs(bomb_loc, [
           loc[0],
-          loc[1]
+          loc[1],
         ]))
     );
     //ゴールの位置を掘り起こし済みにし、G,O,A,Lのアルファベットを設定
@@ -80,7 +92,7 @@ class Game extends Component {
       item_loc: item_loc, //アイテムの場所              [[[x,y], "item_name"]...]
       item_map: item_map, //アイテムのリストマップ       {'item_name':{'description':'', 'number':1}, ...}
       field_state: "EXPLORE", //フィールドの状態
-      pre_field_state: "EXPLORE" //場所を移動する前のフィールドの状態を保存する
+      pre_field_state: "EXPLORE", //場所を移動する前のフィールドの状態を保存する
     };
   }
 
@@ -97,8 +109,8 @@ class Game extends Component {
   ) {
     let stage_settings = STAGES[stage];
     let cur_loc = [5, 0];
-    let marking_loc = new Array();
-    let bombed_loc = new Array();
+    let marking_loc = [];
+    let bombed_loc = [];
     let mined_loc = new Array(12);
     for (let i = 0; i < 12; i++) {
       mined_loc[i] = new Array(18).fill(null);
@@ -109,14 +121,14 @@ class Game extends Component {
       Marking: { description: "", number: bomb_loc.length },
       Scope: { description: "", number: pre_item_number["Scope"] },
       Drone: { description: "", number: pre_item_number["Drone"] },
-      Switch: { description: "", number: pre_item_number["Switch"] }
+      Switch: { description: "", number: pre_item_number["Switch"] },
     };
 
     START_LOC.map(
-      loc =>
+      (loc) =>
         (mined_loc[loc[0]][loc[1]] = this.countBombs(bomb_loc, [
           loc[0],
-          loc[1]
+          loc[1],
         ]))
     );
     for (let [key] in GOAL_LOC) {
@@ -133,7 +145,7 @@ class Game extends Component {
       item_loc: item_loc,
       item_map: item_map,
       field_state: "EXPLORE",
-      pre_field_state: "EXPLORE"
+      pre_field_state: "EXPLORE",
     });
 
     //タイマーをリセットして再起動
@@ -154,7 +166,7 @@ class Game extends Component {
 
     //GOALに到着したら、次のステージの案内をする
     if (
-      GOAL_CHECK.map(loc => loc.toString() === cur_loc.toString()).includes(
+      GOAL_CHECK.map((loc) => loc.toString() === cur_loc.toString()).includes(
         true
       )
     ) {
@@ -162,7 +174,7 @@ class Game extends Component {
       let pre_item_number = {
         Scope: item_map["Scope"]["number"],
         Drone: item_map["Drone"]["number"],
-        Switch: item_map["Switch"]["number"]
+        Switch: item_map["Switch"]["number"],
       };
       //アラートを表示(次のステージに進むorこのステージにとどまる)
       swal({
@@ -170,16 +182,16 @@ class Game extends Component {
         icon: "success",
         buttons: {
           confirm: "Let's go!",
-          cancel: "Not yet."
-        }
-      }).then(value => {
+          cancel: "Not yet.",
+        },
+      }).then((value) => {
         if (value) this.exploreClick(next_stage, pre_item_number);
       });
 
       //フィールドのステータスを'GOAL'にする
       this.setState({
         pre_field_state: field_state,
-        field_state: FIELD_STATE[2]
+        field_state: FIELD_STATE[2],
       });
     }
     //ステータスがMARKINGだったら、クリックするとSquareがMarkingに変わり、mined_locの位置だったら現在地へ
@@ -189,13 +201,13 @@ class Game extends Component {
       if (mined_loc[i][j] === null) {
         marking_loc.push([i, j]);
         this.setState({
-          marking_loc: marking_loc
+          marking_loc: marking_loc,
         });
         for (let i = 0; i < FIELD_ROW * FIELD_COL; i++) {
           squares[i].style.cursor = "";
         }
         this.setState({
-          field_state: pre_field_state
+          field_state: pre_field_state,
         });
         this.usedItem("Marking");
       }
@@ -203,7 +215,7 @@ class Game extends Component {
       else {
         this.setState({
           cur_loc: [i, j],
-          field_state: pre_field_state
+          field_state: pre_field_state,
         });
         for (let i = 0; i < FIELD_ROW * FIELD_COL; i++) {
           squares[i].style.cursor = "";
@@ -215,20 +227,22 @@ class Game extends Component {
     //採掘済みだったら、現在地の場所を変更するだけ
     if (this.state.mined_loc[i][j] !== null) {
       this.setState({
-        cur_loc: [i, j]
+        cur_loc: [i, j],
       });
       return;
     }
     //爆弾だったら、ゲームオーバーを返す
-    if (bomb_loc.map(loc => loc.toString()).includes(cur_loc.toString())) {
+    if (bomb_loc.map((loc) => loc.toString()).includes(cur_loc.toString())) {
       this.setState({
         pre_field_state: field_state,
-        field_state: "GAMEOVER"
+        field_state: "GAMEOVER",
       });
       return;
     }
     //!アイテムがあったら、アイテムリストにアイテムを追加し、獲得したアイテムのアラートを出す
-    if (item_loc.map(item => item[0].toString()).includes(cur_loc.toString())) {
+    if (
+      item_loc.map((item) => item[0].toString()).includes(cur_loc.toString())
+    ) {
       let get_item_name;
       for (let i = 0; i < item_loc.length; i++) {
         if (item_loc[i][0].toString() === cur_loc.toString()) {
@@ -241,14 +255,14 @@ class Game extends Component {
       item_map[get_item_name]["number"] = map_count;
       this.setState({
         item_loc: item_loc,
-        item_map: item_map
+        item_map: item_map,
       });
       //アラートを表示
       swal({
         text: "You get " + get_item_name + "!!",
         buttons: {
-          confirm: "OK"
-        }
+          confirm: "OK",
+        },
       });
     }
 
@@ -256,7 +270,7 @@ class Game extends Component {
     mined_loc[i][j] = this.countBombs(bomb_loc, cur_loc);
     this.setState({
       cur_loc: [i, j],
-      mined_loc: mined_loc
+      mined_loc: mined_loc,
     });
   }
 
@@ -268,7 +282,9 @@ class Game extends Component {
     for (let i = 0; i < number; i++) {
       let new_loc = [getRandomInt(12), getRandomInt(18)];
       // 選んではいけない場所じゃなかったら、ランダム配列に追加する
-      if (!no_choices.map(loc => loc.toString()).includes(new_loc.toString())) {
+      if (
+        !no_choices.map((loc) => loc.toString()).includes(new_loc.toString())
+      ) {
         bomb_loc.push(new_loc);
         no_choices.push(new_loc); //追加した場所は選んではいけない場所にも追加しておく
       }
@@ -287,7 +303,9 @@ class Game extends Component {
     for (let i = 0; i < number; i++) {
       let new_loc = [getRandomInt(12), getRandomInt(18)];
       // 選んではいけない場所じゃなかったら、ランダム配列に追加する
-      if (!no_choices.map(loc => loc.toString()).includes(new_loc.toString())) {
+      if (
+        !no_choices.map((loc) => loc.toString()).includes(new_loc.toString())
+      ) {
         let item_name = ITEMS[getRandomInt(ITEMS.length - 1) + 1];
         let new_item = [new_loc, item_name];
         item_loc.push(new_item);
@@ -303,15 +321,15 @@ class Game extends Component {
 
   //現在の場所の周りの爆弾の数を数える  return n
   countBombs(bomb_loc, cur_loc) {
-    const cur_around = AROUND_LOC.map(loc => [
+    const cur_around = AROUND_LOC.map((loc) => [
       cur_loc[0] + loc[0],
-      cur_loc[1] + loc[1]
+      cur_loc[1] + loc[1],
     ]);
 
     let count = 0;
     for (let i = 0; i < cur_around.length; i++) {
       if (
-        bomb_loc.map(loc => loc.toString()).includes(cur_around[i].toString())
+        bomb_loc.map((loc) => loc.toString()).includes(cur_around[i].toString())
       ) {
         count++;
       }
@@ -343,14 +361,14 @@ class Game extends Component {
     // 掘った場所から掘ることのできる場所を算出する
     let minable_loc_xy = [];
     for (let i = 0; i < mined_loc_xy.length; i++) {
-      let xy_around = AROUND_LOC.map(loc => [
+      let xy_around = AROUND_LOC.map((loc) => [
         mined_loc_xy[i][0] + loc[0],
-        mined_loc_xy[i][1] + loc[1]
+        mined_loc_xy[i][1] + loc[1],
       ]);
       minable_loc_xy = minable_loc_xy.concat(xy_around);
     }
     minable_loc_xy = minable_loc_xy.filter(
-      loc_xy =>
+      (loc_xy) =>
         loc_xy[0] >= 0 && loc_xy[0] < 12 && loc_xy[1] >= 0 && loc_xy[1] < 18
     );
 
@@ -393,7 +411,7 @@ class Game extends Component {
       item_map[item_name]["number"] = item_number - 1;
     }
     this.setState({
-      item_map: item_map
+      item_map: item_map,
     });
   }
 
@@ -404,12 +422,11 @@ class Game extends Component {
         title: "No Item",
         text: "You cannot use Marking...",
         icon: "warning",
-        button: "OK"
+        button: "OK",
       });
       return;
     }
 
-    let cur_loc = this.state.cur_loc;
     let mined_loc = this.state.mined_loc; //[[Array18] * 12]
     let field_state = this.state.field_state;
     let minable_loc = this.getMinable(mined_loc, field_state); //[[Array18] * 12]
@@ -433,9 +450,9 @@ class Game extends Component {
         }
       }
     }
-    let mined_loc_xy_comparable = mined_loc_xy.map(loc => loc.toString()); //比較対象になるようにする
+    let mined_loc_xy_comparable = mined_loc_xy.map((loc) => loc.toString()); //比較対象になるようにする
     let markable_loc = minable_loc_xy.filter(
-      loc => !mined_loc_xy_comparable.includes(loc.toString())
+      (loc) => !mined_loc_xy_comparable.includes(loc.toString())
     ); //[[x,y]...]
     //カーソルをマーキングカーソルに変更
     let squares = document.getElementsByClassName("Board")[0].childNodes;
@@ -445,7 +462,7 @@ class Game extends Component {
     }
     this.setState({
       pre_field_state: field_state,
-      field_state: FIELD_STATE[1]
+      field_state: FIELD_STATE[1],
     });
   }
   //マーキングをダブルクリックしたときマーキングを消す処理
@@ -463,7 +480,7 @@ class Game extends Component {
     item_map["Marking"]["number"] = bomb_loc.length - marking_loc.length;
     this.setState({
       marking_loc: marking_loc,
-      item_map: item_map
+      item_map: item_map,
     });
   }
   //*Scope...周囲を安全に掘り起こす
@@ -473,7 +490,7 @@ class Game extends Component {
         title: "No Item",
         text: "You cannot use Scope...",
         icon: "warning",
-        button: "OK"
+        button: "OK",
       });
       return;
     }
@@ -482,11 +499,11 @@ class Game extends Component {
     let bombed_loc = this.state.bombed_loc;
     let mined_loc = this.state.mined_loc;
     let bomb_loc = this.state.bomb_loc;
-    const cur_around = AROUND_LOC.map(loc => [
+    const cur_around = AROUND_LOC.map((loc) => [
       cur_loc[0] + loc[0],
-      cur_loc[1] + loc[1]
+      cur_loc[1] + loc[1],
     ]).filter(
-      loc_xy =>
+      (loc_xy) =>
         loc_xy[0] >= 0 && loc_xy[0] < 12 && loc_xy[1] >= 0 && loc_xy[1] < 18
     );
     for (let i = 0; i < cur_around.length; i++) {
@@ -498,12 +515,12 @@ class Game extends Component {
       }
     }
     let new_mined_loc = this.minedRendering(bomb_loc, mined_loc);
-    cur_around.map(loc => this.handleClick(loc[0], loc[1]));
+    cur_around.map((loc) => this.handleClick(loc[0], loc[1]));
     this.setState({
       cur_loc: cur_loc,
       bombed_loc: bombed_loc,
       mined_loc: new_mined_loc,
-      bomb_loc: bomb_loc
+      bomb_loc: bomb_loc,
     });
     this.usedItem("Scope");
   }
@@ -514,7 +531,7 @@ class Game extends Component {
         title: "No Item",
         text: "You cannot use Drone...",
         icon: "warning",
-        button: "OK"
+        button: "OK",
       });
       return;
     }
@@ -527,7 +544,9 @@ class Game extends Component {
     while (flag) {
       launch_loc = [getRandomInt(12), getRandomInt(18)];
       if (
-        !excluded_loc.map(loc => loc.toString()).includes(launch_loc.toString())
+        !excluded_loc
+          .map((loc) => loc.toString())
+          .includes(launch_loc.toString())
       ) {
         flag = false;
       }
@@ -542,7 +561,7 @@ class Game extends Component {
         title: "No Item",
         text: "You cannot use Switch...",
         icon: "warning",
-        button: "OK"
+        button: "OK",
       });
       return;
     }
@@ -557,7 +576,7 @@ class Game extends Component {
     this.setState({
       bombed_loc: bombed_loc,
       mined_loc: new_mined_loc,
-      bomb_loc: bomb_loc
+      bomb_loc: bomb_loc,
     });
     this.usedItem("Switch");
   }
@@ -624,7 +643,7 @@ class Game extends Component {
 let timer;
 function startTimer() {
   timer = new Timer();
-  let elapseTime = e => {
+  let elapseTime = (e) => {
     document.getElementById(
       "basicUsage"
     ).textContent = timer.getTimeValues().toString();

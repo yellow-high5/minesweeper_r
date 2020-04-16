@@ -1,75 +1,6 @@
-import React, { Component } from "react";
-import "../css/Itemlist.css";
+import React from 'react';
 
-const ITEMS = ["Marking", "Scope", "Drone", "Switch"];
-
-class Item extends Component {
-  render() {
-    return (
-      <div className="Item">
-        {this.props.icon}
-        <p className="item-name">{this.props.name}</p>
-        <div className="item-state">
-          <p className="item-number">{this.props.number}</p>
-          <button
-            disabled={
-              this.props.field_state === "MARKING" ||
-              this.props.field_state === "GAMEOVER"
-                ? "disabled"
-                : ""
-            }
-            className="item-use"
-            onClick={() => this.props.onClick()}
-          >
-            Use this
-          </button>
-        </div>
-      </div>
-    );
-  }
-}
-
-class Itemlist extends Component {
-  render() {
-    const field_state = this.props.field_state;
-    const item_map = this.props.item_map;
-    return (
-      <div className="Itemlist">
-        <Item
-          name="Marking"
-          icon={marking}
-          number={item_map["Marking"]["number"]}
-          onClick={() => this.props.onMarking()}
-          field_state={field_state}
-        />
-        <Item
-          name="Scope"
-          icon={scope}
-          number={item_map["Scope"]["number"]}
-          onClick={() => this.props.onScope()}
-          field_state={field_state}
-        />
-        <Item
-          name="Drone"
-          icon={drone}
-          number={item_map["Drone"]["number"]}
-          onClick={() => this.props.onDrone()}
-          field_state={field_state}
-        />
-        <Item
-          name="Switch"
-          icon={switchs}
-          number={item_map["Switch"]["number"]}
-          onClick={() => this.props.onSwitch()}
-          field_state={field_state}
-        />
-      </div>
-    );
-  }
-}
-
-//item icon
-let marking = (
+export const marking = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 64 64"
@@ -82,7 +13,8 @@ let marking = (
     />
   </svg>
 );
-let scope = (
+
+export const scope = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 64 64"
@@ -110,7 +42,8 @@ let scope = (
     />
   </svg>
 );
-let drone = (
+
+export const drone = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 64 64"
@@ -128,7 +61,8 @@ let drone = (
     />
   </svg>
 );
-let switchs = (
+
+export const switchs = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 64 64"
@@ -151,5 +85,3 @@ let switchs = (
     />
   </svg>
 );
-
-export default Itemlist;

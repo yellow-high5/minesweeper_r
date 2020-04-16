@@ -1,12 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./css/index.css";
-import App from "./components/App";
-//import animationLogo from './animation/snapsvg';
-import Snap from "snapsvg-cjs";
-import Timer from "easytimer";
-import registerServiceWorker from "./registerServiceWorker";
+import './css/index.css';
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Snap from 'snapsvg-cjs';
+
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+
+//import animationLogo from './animation/snapsvg';
 ReactDOM.render(<App />, document.getElementById("root"));
 
 //Logo Animation
@@ -30,7 +31,7 @@ function animationLogo() {
 let svgBomb = Snap("#svg-bomb"),
   bombPath = [
     "M365.6,287.5c-5.9,87.1-79.5,153-164.4,147.3c-84.9-5.8-149-81-143.1-168.1s79.5-153,164.4-147.3S371.5,200.4,365.6,287.5z",
-    "M393.6,289.4c-7,103-94,181-194.3,174.2C98.9,456.8,23.2,367.8,30.1,264.8s94-181,194.3-174.2C324.8,97.4,400.5,186.4,393.6,289.4z"
+    "M393.6,289.4c-7,103-94,181-194.3,174.2C98.9,456.8,23.2,367.8,30.1,264.8s94-181,194.3-174.2C324.8,97.4,400.5,186.4,393.6,289.4z",
   ],
   SPEED = 750;
 
@@ -44,8 +45,7 @@ function animationBomb() {
 }
 
 //Spark Animation
-let svgSpark = Snap("#svg-spark"),
-  spark0 = Snap("#svg-spark0"),
+let spark0 = Snap("#svg-spark0"),
   spark1 = Snap("#svg-spark1"),
   spark2 = Snap("#svg-spark2"),
   spark3 = Snap("#svg-spark3"),
@@ -61,7 +61,7 @@ let svgSpark = Snap("#svg-spark"),
       ["664.6", "177.4"],
       ["616", "81.3"],
       ["615.6", "216.6"],
-      ["576.6", "116.4"]
+      ["576.6", "116.4"],
     ],
     [
       ["702.6", "155"],
@@ -70,10 +70,9 @@ let svgSpark = Snap("#svg-spark"),
       ["684.7", "195.6"],
       ["611.7", "54.2"],
       ["616.5", "204.3"],
-      ["566.6", "112.9"]
-    ]
+      ["566.6", "112.9"],
+    ],
   ];
-let children = svgSpark.children();
 
 let animationSpark_count = 0;
 function animationSpark() {

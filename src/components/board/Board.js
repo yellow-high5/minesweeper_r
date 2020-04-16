@@ -1,67 +1,13 @@
-import React, { Component } from "react";
-import "../css/Board.css";
+import '../../css/Board.css';
 
-class Square extends Component {
-  render() {
-    return (
-      <button
-        className="Square"
-        disabled={this.props.disabled}
-        onClick={() => this.props.onClick()}
-      >
-        {this.props.value}
-      </button>
-    );
-  }
-}
+import React, { Component } from 'react';
 
-//現在地を示したパネル
-class Current extends Component {
-  render() {
-    return (
-      <button className="Current" disabled={this.props.disabled}>
-        {this.props.value}
-      </button>
-    );
-  }
-}
-
-//アイテムでマーキングしたパネル
-class Marking extends Component {
-  render() {
-    return (
-      <button
-        className="Marking"
-        onDoubleClick={() => this.props.onDoubleClick()}
-      />
-    );
-  }
-}
-
-//アイテムで爆弾を破壊したパネル
-class Bombed extends Component {
-  render() {
-    return <button className="Bombed" disabled="disabled" />;
-  }
-}
-
-//ゲームオーバー時の爆弾箇所パネル
-class Bomb extends Component {
-  render() {
-    return <button className="Bomb" disabled="disabled" />;
-  }
-}
-
-//ゲームオーバーパネル
-class Explode extends Component {
-  render() {
-    return (
-      <button className="Explode" disabled="disabled">
-        {this.props.value}
-      </button>
-    );
-  }
-}
+import Bomb from './panel/Bomb';
+import Bombed from './panel/Bombed';
+import Current from './panel/Current';
+import Explode from './panel/Explode';
+import Marking from './panel/Marking';
+import Square from './panel/Square';
 
 class Board extends Component {
   renderSquare(i, j) {
@@ -117,11 +63,11 @@ class Board extends Component {
       for (let i = 0; i < 12; i++) {
         for (let j = 0; j < 18; j++) {
           if (
-            bombed_loc.map(loc => loc.toString()).includes([i, j].toString())
+            bombed_loc.map((loc) => loc.toString()).includes([i, j].toString())
           ) {
             field.push(this.renderBombed(i, j));
           } else if (
-            bomb_loc.map(loc => loc.toString()).includes([i, j].toString())
+            bomb_loc.map((loc) => loc.toString()).includes([i, j].toString())
           ) {
             field.push(this.renderBomb(i, j));
           } else {
@@ -135,11 +81,11 @@ class Board extends Component {
       for (let i = 0; i < 12; i++) {
         for (let j = 0; j < 18; j++) {
           if (
-            marking_loc.map(loc => loc.toString()).includes([i, j].toString())
+            marking_loc.map((loc) => loc.toString()).includes([i, j].toString())
           ) {
             field.push(this.renderMarking(i, j));
           } else if (
-            bombed_loc.map(loc => loc.toString()).includes([i, j].toString())
+            bombed_loc.map((loc) => loc.toString()).includes([i, j].toString())
           ) {
             field.push(this.renderBombed(i, j));
           } else if (cur_loc[0] === i && cur_loc[1] === j) {

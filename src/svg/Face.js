@@ -1,88 +1,6 @@
-import React, { Component } from "react";
-import "../css/Navigation.css";
+import React from 'react';
 
-class Reset extends Component {
-  render() {
-    const field_state = this.props.field_state;
-    let face;
-    switch (field_state) {
-      case "EXPLORE":
-        face = smile;
-        break;
-      case "MARKING":
-        face = smile;
-        break;
-      case "GOAL":
-        face = love;
-        break;
-      case "GAMEOVER":
-        face = die;
-        break;
-    }
-
-    return (
-      <div
-        idName="facebot"
-        className="Reset"
-        onClick={() => this.props.onClick()}
-      >
-        {face}
-      </div>
-    );
-  }
-}
-
-class AboutStage extends Component {
-  render() {
-    return (
-      <div className="AboutStage">
-        <span>{this.props.stage}</span>
-      </div>
-    );
-  }
-}
-
-class AboutBombs extends Component {
-  render() {
-    return (
-      <div className="AboutBombs">
-        <p>Bomb's number</p>
-        <span>{this.props.number}</span>
-      </div>
-    );
-  }
-}
-
-class TimeDisplay extends Component {
-  render() {
-    return (
-      <div className="TimeDisplay">
-        <span>
-          Time: <span id="basicUsage">00:00:00</span>
-        </span>
-      </div>
-    );
-  }
-}
-
-class Navigation extends Component {
-  render() {
-    return (
-      <div className="Navigation">
-        <Reset
-          field_state={this.props.field_state}
-          onClick={() => this.props.resetClick()}
-        />
-        <AboutStage stage={this.props.stage} />
-        <AboutBombs number={this.props.bomb_number} />
-        <TimeDisplay />
-      </div>
-    );
-  }
-}
-
-//face pattern exportしてもいいかもしれない...
-let love = (
+export const love = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126.24 113">
     <g>
       <g>
@@ -110,7 +28,7 @@ let love = (
     </g>
   </svg>
 );
-let smile = (
+export const smile = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126.24 113">
     <g>
       <g>
@@ -139,7 +57,7 @@ let smile = (
     </g>
   </svg>
 );
-let die = (
+export const die = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126.24 113">
     <g>
       <g>
@@ -167,5 +85,3 @@ let die = (
     </g>
   </svg>
 );
-
-export default Navigation;
