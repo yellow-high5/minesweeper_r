@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const love = (
+export const love: React.ReactElement = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126.24 113">
     <g>
       <g>
@@ -28,7 +28,7 @@ export const love = (
     </g>
   </svg>
 );
-export const smile = (
+export const smile: React.ReactElement = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126.24 113">
     <g>
       <g>
@@ -57,7 +57,7 @@ export const smile = (
     </g>
   </svg>
 );
-export const die = (
+export const die: React.ReactElement = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126.24 113">
     <g>
       <g>

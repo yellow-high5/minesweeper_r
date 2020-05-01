@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const marking = (
+export const marking: React.ReactElement = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 64 64"
@@ -14,7 +14,7 @@ export const marking = (
   </svg>
 );
 
-export const scope = (
+export const scope: React.ReactElement = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 64 64"
@@ -43,7 +43,7 @@ export const scope = (
   </svg>
 );
 
-export const drone = (
+export const drone: React.ReactElement = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 64 64"
@@ -62,7 +62,7 @@ export const drone = (
   </svg>
 );
 
-export const switchs = (
+export const switchs: React.ReactElement = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 64 64"

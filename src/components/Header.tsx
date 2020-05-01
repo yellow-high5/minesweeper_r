@@ -11,7 +11,7 @@ class Header extends Component {
         <header className="App-header">
           {logo}
           <span className="App-title">MineSweeperR, React Application</span>
-          <small>@yoshinori matsuzaki products.</small>
+          <small>@mush products.</small>
         </header>
       </div>
     );
