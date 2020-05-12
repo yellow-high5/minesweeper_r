@@ -1,9 +1,9 @@
 import React from 'react';
 
 type Props = {
-  value: number;
+  value: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | null | 'G' | 'O' | 'A' | 'L';
   disabled: boolean;
-  onClick: () => void;
+  onClick: any;
 };
 
 export default function Square(props: Props) {

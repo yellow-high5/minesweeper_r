@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 export default function Timer() {
   useEffect(() => {
-    alert('mount');
+    console.log('Timer.mount');
   });
 
   return (

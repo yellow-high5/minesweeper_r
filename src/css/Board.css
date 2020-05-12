@@ -57,7 +57,7 @@
 
 .Board .Marking {
   background: #222;
-  background-image: url("/img/marking.png");
+  background-image: url('/img/marking.png');
   background-repeat: no-repeat;
   background-position: center center;
   color: #61dafb;
@@ -97,7 +97,7 @@
 
 .Board .Bomb {
   background: #222;
-  background-image: url("/img/bomb.png");
+  background-image: url('/img/bomb.png');
   background-repeat: no-repeat;
   background-position: center center;
   border: 1px solid #fc3737;

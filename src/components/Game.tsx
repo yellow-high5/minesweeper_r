@@ -20,9 +20,9 @@ export default function Game() {
         field_state={'EXPLORE'}
         item_map={{
           Marking: { description: 'marking', number: 20 },
-          Scope: { description: 'scope', number: 2 },
-          Drone: { description: 'drone', number: 1 },
-          Switch: { description: 'switch', number: 2 },
+          Scope: { description: 'scope', number: 0 },
+          Drone: { description: 'drone', number: 0 },
+          Switch: { description: 'switch', number: 0 },
         }}
         onMarking={() => alert('mark')}
         onScope={() => alert('scope')}
